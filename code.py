@@ -24,11 +24,11 @@ car_variables = {
 
 get_time = datetime.fromtimestamp
 
-updated_frames = []
-all_frames = []
 Ids = {'car_status': '0x2FC', 'key_button_status': '0x23A', 'contact_status':'0x2CA', 'key_info': '0x723'}
 
 def trace_construct(file):
+	updated_frames = []
+	all_frames = []
 	trace = get_trace(file)
 	for frame in trace:
 		if frame[2] == Ids.get('car_status'):
@@ -61,7 +61,9 @@ def trace_construct(file):
 				car_variables.update({'key_position': key_position,'time':time,'ID':frame[2],'frame':frame[6],'txrx':frame[3]})
 				updated_frames.append(car_variables)
 		all_frames.append(car_variables.copy())
-	return updated_frames
+	# return updated_frames
+	print(len(all_frames))
+	return all_frames
 
 
 

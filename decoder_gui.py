@@ -54,7 +54,7 @@ def frame_up():
 	drdr_cont_value.set(my_list[index]['drdr_status_cont'])
 	psd_cont_value.set(my_list[index]['psd_status_cont'])
 	psdr_cont_value.set(my_list[index]['psdr_status_cont'])
-	index_value.set(f'#{index+1} :')
+	index_value.set(f'{index+1} :')
 	status_color_btn.configure(bg=status_colors[my_list[index].get('car_status')])
 	if my_list[index]['drd_status_cont'] == 'Opened':
 		lock_drd_label.place_forget()
@@ -106,7 +106,7 @@ def frame_down():
 	drdr_cont_value.set(my_list[index]['drdr_status_cont'])
 	psd_cont_value.set(my_list[index]['psd_status_cont'])
 	psdr_cont_value.set(my_list[index]['psdr_status_cont'])
-	index_value.set(f'#{index +1} :')
+	index_value.set(f'{index +1} :')
 	status_color_btn.configure(bg=status_colors[my_list[index].get('car_status')])
 
 	if my_list[index]['drd_status_cont'] == 'Opened':
@@ -148,15 +148,17 @@ previous_frame_button.place(x=10,y=10,width=42)
 next_frame_button = tk.Button(root,text =">>",command=frame_up)
 next_frame_button.place(x=55,y=10,width=42)
 
-frame_text = tk.StringVar()
-# frame_text.set(my_list[0]['frame'])
-frame_label = tk.Label(root,textvariable=frame_text,width=20,bg='white')
-frame_label.place(x=110,y=10)
-
 index_value = tk.StringVar()
 # index_value.set(f'#{index+1} :')
-index_label = tk.Label(root,textvariable=index_value,bg='white')
+index_label = tk.Label(root,textvariable=index_value,width=2,bg='white')
 index_label.place(x=110,y=10)
+
+frame_text = tk.StringVar()
+# frame_text.set(my_list[0]['frame'])
+frame_label = tk.Label(root,textvariable=frame_text,width=15,bg='white')
+frame_label.place(x=140,y=10)
+
+
 
 id_btn = tk.Button(root,text='ID:',width=4)
 id_btn.place(x=265,y=10)
