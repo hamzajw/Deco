@@ -27,13 +27,15 @@ root.geometry("950x400")
 root.title('Can Decoder by Hamza')
 
 
-index = -1
+
 my_list = []
 def choose_file():
-	global my_list
+	global my_list, index,file_name
+	index = -1
 	from code import trace_construct   # I import it here to avoid circular import (when two modules import each other)
 	filename = askopenfilename()
 	if filename:
+		file_name.set(filename)
 		my_list = trace_construct(filename)
 		frame_up()
 
@@ -277,8 +279,15 @@ psdr_cont_label = tk.Label(root,textvariable=psdr_cont_value,width=15,bg='white'
 psdr_cont_label.place(x=370,y=160)
 
 
+
+
 choose_file_btn = tk.Button(root,text='Choose trace file',command=choose_file)
 choose_file_btn.place(x=100,y=220,width=300)
+file_name = tk.StringVar()
+filename_label = tk.Label(root,textvariable=file_name)
+filename_label.place(x=100,y=250,width=300)
+
+
 
 zone_label = tk.Label(root,bg='red',height=30,width=58)
 zone_label.place(x=485,y=0)

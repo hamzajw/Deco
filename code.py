@@ -59,7 +59,7 @@ def trace_construct(file):
 			if key_position != car_variables.get('key_position'):
 				time = time = get_time(frame[0]).strftime("%I%p %M:%S")
 				car_variables.update({'key_position': key_position,'time':time,'ID':frame[2],'frame':frame[6],'txrx':frame[3]})
-				updated_frames.append(car_variables)
+				updated_frames.append(car_variables.copy())
 		all_frames.append(car_variables.copy())
 	# return updated_frames
 	print(len(all_frames))
