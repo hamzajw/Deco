@@ -17,6 +17,9 @@ status_colors = {
 	None : '#808080'
 }
 
+unkown_pos_color = 'red'
+outside_color = '#808080'
+inside_color = 'white'
 
 
 root = tk.Tk() # create a window
@@ -30,8 +33,9 @@ def choose_file():
 	global my_list
 	from code import trace_construct   # I import it here to avoid circular import (when two modules import each other)
 	filename = askopenfilename()
-	my_list = trace_construct(filename)
-	frame_up()
+	if filename:
+		my_list = trace_construct(filename)
+		frame_up()
 
 	
 def frame_up():
@@ -58,31 +62,41 @@ def frame_up():
 	status_color_btn.configure(bg=status_colors[my_list[index].get('car_status')])
 	if my_list[index]['drd_status_cont'] == 'Opened':
 		lock_drd_label.place_forget()
-		unlock_drd_label.place(x=610,y=160)
+		unlock_drd_label.place(x=570,y=160)
 	elif my_list[index]['drd_status_cont'] == 'Closed':
-		lock_drd_label.place(x=610,y=160)
+		lock_drd_label.place(x=570,y=160)
 		unlock_drd_label.place_forget()
 
 	if my_list[index]['drdr_status_cont'] == 'Opened':
 		lock_drdr_label.place_forget()
-		unlock_drdr_label.place(x=610,y=250)
+		unlock_drdr_label.place(x=570,y=250)
 	else:
-		lock_drdr_label.place(x=610,y=250)
+		lock_drdr_label.place(x=570,y=250)
 		unlock_drdr_label.place_forget()
 
 	if my_list[index]['psd_status_cont'] == 'Opened':
 		lock_psd_label.place_forget()
-		unlock_psd_label.place(x=830,y=160)
+		unlock_psd_label.place(x=770,y=160)
 	else:
-		lock_psd_label.place(x=830,y=160)
+		lock_psd_label.place(x=770,y=160)
 		unlock_psd_label.place_forget()
 
 	if my_list[index]['psdr_status_cont'] == 'Opened':
 		lock_psdr_label.place_forget()
-		unlock_psdr_label.place(x=830,y=250)
+		unlock_psdr_label.place(x=770,y=250)
 	else:
-		lock_psdr_label.place(x=830,y=250)
+		lock_psdr_label.place(x=770,y=250)
 		unlock_psdr_label.place_forget()
+
+	if my_list[index]['key_position'] == 'Outside':
+		car_key_label.place(x = 555 ,y=35)
+		car_key_label.configure(bg=outside_color)
+	elif my_list[index]['key_position'] == 'Unkown':
+		car_key_label.place(x = 490 ,y=150)
+		car_key_label.configure(bg=unkown_pos_color)
+	elif my_list[index]['key_position'] == 'Inside':
+		car_key_label.place(x = 670 ,y=50)
+		car_key_label.configure(bg=inside_color)
 
 
 
@@ -111,31 +125,41 @@ def frame_down():
 
 	if my_list[index]['drd_status_cont'] == 'Opened':
 		lock_drd_label.place_forget()
-		unlock_drd_label.place(x=610,y=160)
+		unlock_drd_label.place(x=570,y=160)
 	else:
-		lock_drd_label.place(x=610,y=160)
+		lock_drd_label.place(x=570,y=160)
 		unlock_drd_label.place_forget()
 
 	if my_list[index]['drdr_status_cont'] == 'Opened':
 		lock_drdr_label.place_forget()
-		unlock_drdr_label.place(x=610,y=250)
+		unlock_drdr_label.place(x=570,y=250)
 	else:
-		lock_drdr_label.place(x=610,y=250)
+		lock_drdr_label.place(x=570,y=250)
 		unlock_drdr_label.place_forget()
 
 	if my_list[index]['psd_status_cont'] == 'Opened':
 		lock_psd_label.place_forget()
-		unlock_psd_label.place(x=830,y=160)
+		unlock_psd_label.place(x=770,y=160)
 	else:
-		lock_psd_label.place(x=830,y=160)
+		lock_psd_label.place(x=770,y=160)
 		unlock_psd_label.place_forget()
 
 	if my_list[index]['psdr_status_cont'] == 'Opened':
 		lock_psdr_label.place_forget()
-		unlock_psdr_label.place(x=830,y=250)
+		unlock_psdr_label.place(x=770,y=250)
 	else:
-		lock_psdr_label.place(x=830,y=250)
+		lock_psdr_label.place(x=770,y=250)
 		unlock_psdr_label.place_forget()
+
+	if my_list[index]['key_position'] == 'Outside':
+		car_key_label.place(x = 555 ,y=35)
+		car_key_label.configure(bg=outside_color)
+	elif my_list[index]['key_position'] == 'Unkown':
+		car_key_label.place(x = 490 ,y=150)
+		car_key_label.configure(bg=unkown_pos_color)
+	elif my_list[index]['key_position'] == 'Inside':
+		car_key_label.place(x = 670 ,y=50)
+		car_key_label.configure(bg=inside_color)
 
 		
 
@@ -256,12 +280,17 @@ psdr_cont_label.place(x=370,y=160)
 choose_file_btn = tk.Button(root,text='Choose trace file',command=choose_file)
 choose_file_btn.place(x=100,y=220,width=300)
 
+zone_label = tk.Label(root,bg='red',height=30,width=58)
+zone_label.place(x=485,y=0)
 
 car_img = Image.open('car_top_view.png')  # using pillow Image method to open an image
 resized_car_img = car_img.resize((380,380), Image.LANCZOS)  #
 converted_car_img = ImageTk.PhotoImage(resized_car_img)  # convert the image to a fomart compatible with tkinter/ or normal image
-car_label = tk.Label(root,image=converted_car_img,bg='#808080')
+car_label = tk.Label(root,image=converted_car_img,bg='#808080',width=280)
 car_label.place(x=550,y=10)
+
+
+
 
 
 #unlock images
@@ -271,10 +300,10 @@ unlock_drdr_label = tk.Label(root,image=unlock_img)
 unlock_psd_label = tk.Label(root,image=unlock_img)
 unlock_psdr_label = tk.Label(root,image=unlock_img)
 
-unlock_drd_label.place(x=610,y=160)
-unlock_drdr_label.place(x=610,y=250)
-unlock_psd_label.place(x=830,y=160)
-unlock_psdr_label.place(x=830,y=250)
+unlock_drd_label.place(x=570,y=160)
+unlock_drdr_label.place(x=570,y=250)
+unlock_psd_label.place(x=770,y=160)
+unlock_psdr_label.place(x=770,y=250)
 
 #lock images
 lock_img = ImageTk.PhotoImage(Image.open('lock.png').resize((40,40),Image.LANCZOS))  # same as for the car image but in one line
@@ -283,11 +312,15 @@ lock_drdr_label = tk.Label(root,image=lock_img)
 lock_psd_label = tk.Label(root,image=lock_img)
 lock_psdr_label = tk.Label(root,image=lock_img)
 
-lock_drd_label.place(x=610,y=160)
-lock_drdr_label.place(x=610,y=250)
-lock_psd_label.place(x=830,y=160)
-lock_psdr_label.place(x=830,y=250)
+lock_drd_label.place(x=570,y=160)
+lock_drdr_label.place(x=570,y=250)
+lock_psd_label.place(x=770,y=160)
+lock_psdr_label.place(x=770,y=250)
 
+car_key_img = Image.open('key1.png').resize((50,50),Image.LANCZOS)
+car_key_img_conv = ImageTk.PhotoImage(car_key_img)
+car_key_label = tk.Label(root,image=car_key_img_conv,bg='#808080')
+car_key_label.place(x = 555 ,y=35)
 
 
 root.mainloop()
