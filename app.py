@@ -292,7 +292,7 @@ filename_label.place(x=100,y=250,width=300)
 zone_label = tk.Label(root,bg='red',height=30,width=58)
 zone_label.place(x=485,y=0)
 
-car_img = Image.open('car_top_view.png')  # using pillow Image method to open an image
+car_img = Image.open(r'resources\car_top_view.png')  # using pillow Image method to open an image
 resized_car_img = car_img.resize((380,380), Image.LANCZOS)  #
 converted_car_img = ImageTk.PhotoImage(resized_car_img)  # convert the image to a fomart compatible with tkinter/ or normal image
 car_label = tk.Label(root,image=converted_car_img,bg='#808080',width=280)
@@ -303,7 +303,7 @@ car_label.place(x=550,y=10)
 
 
 #unlock images
-unlock_img = ImageTk.PhotoImage(Image.open('unlock.png').resize((40,40),Image.LANCZOS))  # same as for the car image but in one line
+unlock_img = ImageTk.PhotoImage(Image.open(r'resources\unlock.png').resize((40,40),Image.LANCZOS))  # same as for the car image but in one line
 unlock_drd_label = tk.Label(root,image=unlock_img)
 unlock_drdr_label = tk.Label(root,image=unlock_img)
 unlock_psd_label = tk.Label(root,image=unlock_img)
@@ -315,7 +315,7 @@ unlock_psd_label.place(x=770,y=160)
 unlock_psdr_label.place(x=770,y=250)
 
 #lock images
-lock_img = ImageTk.PhotoImage(Image.open('lock.png').resize((40,40),Image.LANCZOS))  # same as for the car image but in one line
+lock_img = ImageTk.PhotoImage(Image.open(r'resources\lock.png').resize((40,40),Image.LANCZOS))  # same as for the car image but in one line
 lock_drd_label = tk.Label(root,image=lock_img)
 lock_drdr_label = tk.Label(root,image=lock_img)
 lock_psd_label = tk.Label(root,image=lock_img)
@@ -326,7 +326,7 @@ lock_drdr_label.place(x=570,y=250)
 lock_psd_label.place(x=770,y=160)
 lock_psdr_label.place(x=770,y=250)
 
-car_key_img = Image.open('key1.png').resize((50,50),Image.LANCZOS)
+car_key_img = Image.open(r'resources\key1.png').resize((50,50),Image.LANCZOS)
 car_key_img_conv = ImageTk.PhotoImage(car_key_img)
 car_key_label = tk.Label(root,image=car_key_img_conv,bg='#808080')
 car_key_label.place(x = 555 ,y=35)
